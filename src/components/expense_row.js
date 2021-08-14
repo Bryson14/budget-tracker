@@ -1,8 +1,8 @@
-const ExpenseRow = ({ date, amount, category, note }) => {
+const ExpenseRow = ({ id, date, amount, category, note }) => {
   let items = [date, amount, category, note];
 
   return (
-    <tr>
+    <tr id={id}>
       {items.map((item, idx) => (
         <td key={idx}>{item}</td>
       ))}

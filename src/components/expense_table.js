@@ -14,6 +14,7 @@ const ExpenseTable = ({ expenses }) => {
       <tbody>
         {expenses.map((expense, idx) => (
           <ExpenseRow
+            id={idx}
             date={expense.date}
             amount={expense.amount}
             category={expense.category}
