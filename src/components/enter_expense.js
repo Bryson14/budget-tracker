@@ -12,6 +12,8 @@ const EnterExpense = ({ addExpense, categories }) => {
   const goodInputStyle = "";
   const badInputStyle = "form-control is-invalid";
 
+  const [dateLabelStyle, setDateLabelStyle] = useState(goodLabelStyle);
+  const [dateInputStyle, setDateInputStyle] = useState(goodInputStyle);
   const [amountLabelStyle, setAmountLabelStyle] = useState(goodLabelStyle);
   const [amountInputStyle, setAmountInputStyle] = useState(goodInputStyle);
   const [noteLabelStyle, setNoteLabelStyle] = useState(goodLabelStyle);
@@ -24,8 +26,8 @@ const EnterExpense = ({ addExpense, categories }) => {
     categories.length > 0 &&
     categories.map((item, i) => {
       return (
-        <option key={i} value={item}>
-          {item}
+        <option key={i} value={item.name}>
+          {item.name}
         </option>
       );
     }, this);
@@ -52,7 +54,8 @@ const EnterExpense = ({ addExpense, categories }) => {
       setNoteInputStyle(goodInputStyle);
     }
     // setting category label and input to okay or error
-    if (categoryLabelStyle === "") {
+    debugger;
+    if (category === "") {
       setCategoryLabelStyle(badLabelStyle);
       setCategorySelectStyle(badInputStyle);
       okay = false;
@@ -104,13 +107,20 @@ const EnterExpense = ({ addExpense, categories }) => {
     <div className="container">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label className={amountLabelStyle} for="dateinput">
+          <label className={dateLabelStyle} for="dateinput">
             Date
           </label>
-          <input type="date" value={date} onChange={handleChange("date")} />
+          <input
+            type="date"
+            className={dateInputStyle}
+            value={date}
+            onChange={handleChange("date")}
+          />
         </div>
         <div className="form-group">
-          <label for="amountinput">Amount</label>
+          <label className={amountLabelStyle} for="amountinput">
+            Amount
+          </label>
           <input
             type="number"
             className={amountInputStyle}

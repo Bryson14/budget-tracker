@@ -1,8 +1,9 @@
 import ExpenseRow from "./expense_row";
 
 const ExpenseTable = ({ expenses }) => {
+  debugger;
   return (
-    <table responsive>
+    <table>
       <thead>
         <tr>
           <th>Date</th>
