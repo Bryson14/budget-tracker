@@ -8,18 +8,8 @@ const api_key = process.env.REACT_APP_API_KEY;
 var base = new Airtable({ apiKey: api_key }).base("app5VP16VBp5NgMg5");
 
 function App() {
-  const [expenses, setExpenses] = useState([
-    { date: "8/14/21", amount: 12.3, category: "groceries", note: "nothing" },
-    { date: "8/15/21", amount: 84.5, category: "fun money", note: "idk" },
-    { date: "8/16/21", amount: 12.23, category: "apartment", note: "why me" },
-  ]);
-
-  const [categories, setCategories] = useState([
-    { name: "Groceries", amount: 100 },
-    { name: "Bry's fun Money", amount: 50 },
-    { name: "Jazmin's Fun Money", amount: 75 },
-    { name: "Apartment", amount: 60 },
-  ]);
+  const [expenses, setExpenses] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const addExpense = (expense) => {
     if (
@@ -67,17 +57,6 @@ function App() {
       );
   }
 
-  async function get_category_name_from_id(id) {
-    base("Category_Budgets").find(id, function (err, record) {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      console.log("Retrieved", record.name);
-      return record.name;
-    });
-  }
-
   async function get_categories_from_airtable() {
     let list_records = [];
     base("Category_Budgets")
@@ -111,10 +90,9 @@ function App() {
   }
 
   async function post_new_transaction_to_airtable(expense) {
-    debugger;
     base("Transactions").create([{ fields: expense }], function (err, records) {
       if (err) {
-        console.error(err);
+        alert(`Error posting Expense to Airtable ${expense}.`);
         return;
       }
       records.forEach(function (record) {
@@ -129,11 +107,13 @@ function App() {
   }, []);
 
   return (
-    <div className="container">
+    <div className="container m-4 p-4">
       <h1>Budget Tracker</h1>
-      <Login />
-      <ExpenseTable expenses={expenses} />
       <EnterExpense addExpense={addExpense} categories={categories} />
+      {/* <Login /> */}
+      <div className="container m-3 p-3">
+        <ExpenseTable expenses={expenses} />
+      </div>
     </div>
   );
 }

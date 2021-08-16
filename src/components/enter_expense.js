@@ -1,16 +1,17 @@
 import { useState } from "react";
 
 const EnterExpense = ({ addExpense, categories }) => {
-  var today = new Date().toDateString();
+  var today = new Date().toISOString();
+  today = today.slice(0, today.indexOf("T"));
   const [date, setDate] = useState(today);
   const [note, setNote] = useState("");
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
 
-  const goodLabelStyle = "";
-  const badLabelStyle = "text-danger";
-  const goodInputStyle = "";
-  const badInputStyle = "form-control is-invalid";
+  const goodLabelStyle = "mr-3";
+  const badLabelStyle = "mr-3 text-danger";
+  const goodInputStyle = "my-1";
+  const badInputStyle = "my-1 form-control is-invalid";
 
   const [dateLabelStyle, setDateLabelStyle] = useState(goodLabelStyle);
   const [dateInputStyle, setDateInputStyle] = useState(goodInputStyle);
@@ -63,20 +64,32 @@ const EnterExpense = ({ addExpense, categories }) => {
       setCategoryLabelStyle(goodLabelStyle);
       setCategorySelectStyle(goodInputStyle);
     }
+    // setting date label and input to okay or error
+    debugger;
+    if (date === "") {
+      setDateLabelStyle(badLabelStyle);
+      setDateInputStyle(badInputStyle);
+      okay = false;
+    } else {
+      setDateLabelStyle(goodLabelStyle);
+      setDateInputStyle(goodInputStyle);
+    }
 
     if (okay) {
       try {
+        var today = new Date().toISOString();
+        today = today.slice(0, today.indexOf("T"));
         let float_amount = Number(amount);
-        setDate(new Date().toDateString());
-        setNote("");
-        setCategory("");
-        setAmount("");
         addExpense({
           date: date,
           amount: float_amount,
           category: category,
           note: note,
         });
+        setDate(today);
+        setNote("");
+        setCategory("");
+        setAmount("");
       } catch (e) {
         alert("Bad number conversion of amount to Number type");
       }
@@ -95,6 +108,13 @@ const EnterExpense = ({ addExpense, categories }) => {
         setNote(e.target.value);
         break;
       case "date":
+        var today = new Date().toISOString();
+        today = today.slice(0, today.indexOf("T"));
+        if (e.target.value > today) {
+          alert("Cannot have an expense in the future.");
+          setDate("");
+          return;
+        }
         setDate(e.target.value);
         break;
       default:
@@ -104,10 +124,10 @@ const EnterExpense = ({ addExpense, categories }) => {
   };
 
   return (
-    <div className="container">
+    <div className="container-fluid m-4">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label className={dateLabelStyle} for="dateinput">
+          <label className={dateLabelStyle} htmlFor="dateinput">
             Date
           </label>
           <input
@@ -118,7 +138,7 @@ const EnterExpense = ({ addExpense, categories }) => {
           />
         </div>
         <div className="form-group">
-          <label className={amountLabelStyle} for="amountinput">
+          <label className={amountLabelStyle} htmlFor="amountinput">
             Amount
           </label>
           <input
@@ -136,7 +156,7 @@ const EnterExpense = ({ addExpense, categories }) => {
           </small>
         </div>
         <div className="form-group">
-          <label className={categoryLabelStyle} for="categorySelect">
+          <label className={categoryLabelStyle} htmlFor="categorySelect">
             Category
           </label>
           <select
@@ -151,7 +171,7 @@ const EnterExpense = ({ addExpense, categories }) => {
           </select>
         </div>
         <div className="form-group">
-          <label className={noteLabelStyle} for="noteInput">
+          <label className={noteLabelStyle} htmlFor="noteInput">
             Note
           </label>
           <input
