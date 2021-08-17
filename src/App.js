@@ -20,6 +20,7 @@ function App() {
       expense.hasOwnProperty("category") &&
       expense.hasOwnProperty("note")
     ) {
+      // the setExpenses triggers rerender and will fetch the new data from airTable.
       setExpenses([...expenses, expense]);
       post_new_transaction_to_airtable(expense);
     } else {
@@ -53,22 +54,13 @@ function App() {
             console.error(err);
             return;
           } else {
-            let amounts_spent = {};
-            list_records.forEach((record) => {
-              if (amounts_spent.hasOwnProperty(record.category)) {
-                amounts_spent[record.category] += record.amount;
-              } else {
-                amounts_spent[record.category] = record.amount;
-              }
-            });
-            debugger;
-            setSpentPerCategory(amounts_spent);
             setExpenses(list_records);
           }
         }
       );
   }
 
+  // gets the budget categories from airtable
   async function get_categories_from_airtable() {
     let list_records = [];
     base("Category_Budgets")
@@ -101,6 +93,7 @@ function App() {
       );
   }
 
+  // creates new transaction to airtable
   async function post_new_transaction_to_airtable(expense) {
     base("Transactions").create([{ fields: expense }], function (err, records) {
       if (err) {
@@ -125,13 +118,13 @@ function App() {
       {/* <Login /> */}
       <div class="container-fluid">
         <h2>Current Categories</h2>
-        <div class="row flex-row flex-nowrap overflow-auto">
+        <div class="row d-flex flex-row flex-nowrap overflow-auto p-3 m-3">
           {categories.map((category, idx) => (
             <div className="col-3">
               <BudgetCard
                 category={category.name}
                 budget_amount={category.amount}
-                amounts_spent={spentPerCategory}
+                amounts_spent={spentPerCategory[category.name]}
               />
             </div>
           ))}
@@ -139,7 +132,10 @@ function App() {
       </div>
       <div className="container m-3 p-3">
         <h2>Expenses</h2>
-        <ExpenseTable expenses={expenses} />
+        <ExpenseTable
+          expenses={expenses}
+          setSpentPerCategory={setSpentPerCategory}
+        />
       </div>
     </div>
   );

@@ -1,6 +1,24 @@
 import ExpenseRow from "./expense_row";
+import { useEffect } from "react";
 
-const ExpenseTable = ({ expenses }) => {
+const ExpenseTable = ({ expenses, setSpentPerCategory }) => {
+  const calculateCurrentExpenditures = () => {
+    let amounts_spent = {};
+    expenses.forEach((expense) => {
+      if (amounts_spent.hasOwnProperty(expense.category)) {
+        amounts_spent[expense.category] += expense.amount;
+      } else {
+        amounts_spent[expense.category] = expense.amount;
+      }
+    });
+    debugger;
+    setSpentPerCategory(amounts_spent);
+  };
+
+  useEffect(() => {
+    calculateCurrentExpenditures();
+  });
+
   return (
     <div className="table-responsive">
       <table className="table table-striped table-hover align-middle">
