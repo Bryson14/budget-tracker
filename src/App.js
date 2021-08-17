@@ -1,6 +1,7 @@
 import "./App.css";
 import ExpenseTable from "./components/expense_table";
 import Login from "./components/login";
+import BudgetCard from "./components/budget_card";
 import EnterExpense from "./components/enter_expense";
 import { useState, useEffect } from "react";
 var Airtable = require("airtable");
@@ -10,6 +11,7 @@ var base = new Airtable({ apiKey: api_key }).base("app5VP16VBp5NgMg5");
 function App() {
   const [expenses, setExpenses] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [spentPerCategory, setSpentPerCategory] = useState({});
 
   const addExpense = (expense) => {
     if (
@@ -51,6 +53,16 @@ function App() {
             console.error(err);
             return;
           } else {
+            let amounts_spent = {};
+            list_records.forEach((record) => {
+              if (amounts_spent.hasOwnProperty(record.category)) {
+                amounts_spent[record.category] += record.amount;
+              } else {
+                amounts_spent[record.category] = record.amount;
+              }
+            });
+            debugger;
+            setSpentPerCategory(amounts_spent);
             setExpenses(list_records);
           }
         }
@@ -111,7 +123,22 @@ function App() {
       <h1>Budget Tracker</h1>
       <EnterExpense addExpense={addExpense} categories={categories} />
       {/* <Login /> */}
+      <div class="container-fluid">
+        <h2>Current Categories</h2>
+        <div class="row flex-row flex-nowrap overflow-auto">
+          {categories.map((category, idx) => (
+            <div className="col-3">
+              <BudgetCard
+                category={category.name}
+                budget_amount={category.amount}
+                amounts_spent={spentPerCategory}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
       <div className="container m-3 p-3">
+        <h2>Expenses</h2>
         <ExpenseTable expenses={expenses} />
       </div>
     </div>
