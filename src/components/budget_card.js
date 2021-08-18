@@ -1,5 +1,4 @@
 const BudgetCard = ({ category, budget_amount, current_amount }) => {
-  debugger;
   return (
     <div className="card card-block p-2">
       <div className="card-body"> </div>

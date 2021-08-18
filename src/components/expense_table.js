@@ -11,7 +11,6 @@ const ExpenseTable = ({ expenses, setSpentPerCategory }) => {
         amounts_spent[expense.category] = expense.amount;
       }
     });
-    debugger;
     setSpentPerCategory(amounts_spent);
   };
 

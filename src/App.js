@@ -120,7 +120,7 @@ function App() {
         <h2>Current Categories</h2>
         <div class="row d-flex flex-row flex-nowrap overflow-auto p-3 m-3">
           {categories.map((category, idx) => (
-            <div className="col-3">
+            <div className="col-lg-3 col-sm-10">
               <BudgetCard
                 category={category.name}
                 budget_amount={category.amount}
