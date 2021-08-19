@@ -1,5 +1,9 @@
 import "./App.css";
 import ExpenseTable from "./components/expense_table";
+<<<<<<< HEAD
+=======
+import Login from "./components/login";
+>>>>>>> 98dd403f26254f41882984ea9818179d2a746321
 import BudgetCard from "./components/budget_card";
 import EnterExpense from "./components/enter_expense";
 import { useState, useEffect } from "react";
@@ -10,6 +14,7 @@ var base = new Airtable({ apiKey: api_key }).base("app5VP16VBp5NgMg5");
 function App() {
   const [expenses, setExpenses] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [spentPerCategory, setSpentPerCategory] = useState({});
 
   const addExpense = (expense) => {
     if (
@@ -18,6 +23,7 @@ function App() {
       expense.hasOwnProperty("category") &&
       expense.hasOwnProperty("note")
     ) {
+      // the setExpenses triggers rerender and will fetch the new data from airTable.
       setExpenses([...expenses, expense]);
       post_new_transaction_to_airtable(expense);
     } else {
@@ -57,6 +63,7 @@ function App() {
       );
   }
 
+  // gets the budget categories from airtable
   async function get_categories_from_airtable() {
     let list_records = [];
     base("Category_Budgets")
@@ -89,6 +96,7 @@ function App() {
       );
   }
 
+  // creates new transaction to airtable
   async function post_new_transaction_to_airtable(expense) {
     base("Transactions").create([{ fields: expense }], function (err, records) {
       if (err) {
@@ -127,6 +135,7 @@ function App() {
       <h1>Budget Tracker</h1>
       <EnterExpense addExpense={addExpense} categories={categories} />
       {/* <Login /> */}
+<<<<<<< HEAD
       {Object.entries(actual_budget_spent).map(([key, value]) => {
         // Pretty straightforward - use key for the key and value for the value.
         // Just to clarify: unlike object destructuring, the parameter names don't matter here.
@@ -140,8 +149,28 @@ function App() {
         );
       })}
 
+=======
+      <div class="container-fluid">
+        <h2>Current Categories</h2>
+        <div class="row d-flex flex-row flex-nowrap overflow-auto p-3 m-3">
+          {categories.map((category, idx) => (
+            <div className="col-lg-3 col-sm-10">
+              <BudgetCard
+                category={category.name}
+                budget_amount={category.amount}
+                amounts_spent={spentPerCategory[category.name]}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+>>>>>>> 98dd403f26254f41882984ea9818179d2a746321
       <div className="container m-3 p-3">
-        <ExpenseTable expenses={expenses} />
+        <h2>Expenses</h2>
+        <ExpenseTable
+          expenses={expenses}
+          setSpentPerCategory={setSpentPerCategory}
+        />
       </div>
     </div>
   );

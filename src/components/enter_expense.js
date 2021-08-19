@@ -96,7 +96,8 @@ const EnterExpense = ({ addExpense, categories }) => {
     }
   };
 
-  const handleChange = (data) => (e) => {
+  const handleChange = (data, e) => {
+    debugger;
     switch (data) {
       case "amount":
         setAmount(e.target.value);
@@ -134,7 +135,7 @@ const EnterExpense = ({ addExpense, categories }) => {
             type="date"
             className={dateInputStyle}
             value={date}
-            onChange={handleChange("date")}
+            onChange={(e) => handleChange("date", e)}
           />
         </div>
         <div className="form-group">
@@ -145,7 +146,7 @@ const EnterExpense = ({ addExpense, categories }) => {
             type="number"
             className={amountInputStyle}
             value={amount}
-            onChange={handleChange("amount")}
+            onChange={(e) => handleChange("amount", e)}
             pattern="\d*"
             id="amountinput"
             aria-describedby="amountHelp"
@@ -162,7 +163,7 @@ const EnterExpense = ({ addExpense, categories }) => {
           <select
             className={categorySelectStyle}
             value={category}
-            onChange={handleChange("category")}
+            onChange={(e) => handleChange("category", e)}
           >
             <option selected value="">
               Choose...
@@ -177,7 +178,7 @@ const EnterExpense = ({ addExpense, categories }) => {
           <input
             type="text"
             value={note}
-            onChange={handleChange("note")}
+            onChange={(e) => handleChange("note", e)}
             className={noteInputStyle}
             id="noteInput"
             aria-describedby="noteHelp"
