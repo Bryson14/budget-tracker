@@ -124,7 +124,7 @@ function App() {
     name_index_category_dict[category.name] = idx;
     actual_budget_spent.total_budget += category.amount;
   });
-
+  debugger;
   return (
     <div className="container m-4 p-4 text-center">
       <h1>Budget Tracker</h1>
@@ -139,6 +139,10 @@ function App() {
           // Pretty straightforward - use key for the key and value for the value.
           // Just to clarify: unlike object destructuring, the parameter names don't matter here.
 
+          // to keep the meta data in actual_budget_spent from being made into a category card
+          if (key === "total_spent" || key === "total_budget") {
+            return <></>;
+          }
           return (
             <div className="row d-flex flex-row flex-nowrap overflow-auto">
               <BudgetCard
