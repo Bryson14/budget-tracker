@@ -1,9 +1,5 @@
 import "./App.css";
 import ExpenseTable from "./components/expense_table";
-<<<<<<< HEAD
-=======
-import Login from "./components/login";
->>>>>>> 98dd403f26254f41882984ea9818179d2a746321
 import BudgetCard from "./components/budget_card";
 import EnterExpense from "./components/enter_expense";
 import { useState, useEffect } from "react";
@@ -14,7 +10,6 @@ var base = new Airtable({ apiKey: api_key }).base("app5VP16VBp5NgMg5");
 function App() {
   const [expenses, setExpenses] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [spentPerCategory, setSpentPerCategory] = useState({});
 
   const addExpense = (expense) => {
     if (
@@ -24,7 +19,7 @@ function App() {
       expense.hasOwnProperty("note")
     ) {
       // the setExpenses triggers rerender and will fetch the new data from airTable.
-      setExpenses([...expenses, expense]);
+      setExpenses([expense, ...expenses]);
       post_new_transaction_to_airtable(expense);
     } else {
       alert(
@@ -103,9 +98,7 @@ function App() {
         alert(`Error posting Expense to Airtable ${expense}.`);
         return;
       }
-      records.forEach(function (record) {
-        console.log(record.getId());
-      });
+      records.forEach(function (record) {});
     });
   }
 
@@ -115,8 +108,9 @@ function App() {
   }, []);
 
   // calculating the actual amounts spend by iterating over the expense transactions
-  let actual_budget_spent = {};
+  let actual_budget_spent = { total_spent: 0, total_budget: 0 };
   expenses.forEach((expense) => {
+    actual_budget_spent.total_spent += expense.amount;
     if (actual_budget_spent.hasOwnProperty(expense.category)) {
       actual_budget_spent[expense.category] += expense.amount;
     } else {
@@ -128,49 +122,38 @@ function App() {
   let name_index_category_dict = {};
   categories.forEach((category, idx) => {
     name_index_category_dict[category.name] = idx;
+    actual_budget_spent.total_budget += category.amount;
   });
 
   return (
-    <div className="container m-4 p-4">
+    <div className="container m-4 p-4 text-center">
       <h1>Budget Tracker</h1>
+      <small>
+        Spent ${actual_budget_spent.total_spent.toFixed(2)} of $
+        {actual_budget_spent.total_budget}
+      </small>
       <EnterExpense addExpense={addExpense} categories={categories} />
       {/* <Login /> */}
-<<<<<<< HEAD
-      {Object.entries(actual_budget_spent).map(([key, value]) => {
-        // Pretty straightforward - use key for the key and value for the value.
-        // Just to clarify: unlike object destructuring, the parameter names don't matter here.
+      <div className="container-fluid">
+        {Object.entries(actual_budget_spent).map(([key, value]) => {
+          // Pretty straightforward - use key for the key and value for the value.
+          // Just to clarify: unlike object destructuring, the parameter names don't matter here.
 
-        return (
-          <BudgetCard
-            category={key}
-            budget_amount={categories[name_index_category_dict[key]]}
-            current_amount={value}
-          />
-        );
-      })}
-
-=======
-      <div class="container-fluid">
-        <h2>Current Categories</h2>
-        <div class="row d-flex flex-row flex-nowrap overflow-auto p-3 m-3">
-          {categories.map((category, idx) => (
-            <div className="col-lg-3 col-sm-10">
+          return (
+            <div className="row d-flex flex-row flex-nowrap overflow-auto">
               <BudgetCard
-                category={category.name}
-                budget_amount={category.amount}
-                amounts_spent={spentPerCategory[category.name]}
+                category={key}
+                budget_amount={categories[name_index_category_dict[key]]}
+                current_amount={value}
               />
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
->>>>>>> 98dd403f26254f41882984ea9818179d2a746321
-      <div className="container m-3 p-3">
+
+      <div className="container m-1 p-1">
         <h2>Expenses</h2>
-        <ExpenseTable
-          expenses={expenses}
-          setSpentPerCategory={setSpentPerCategory}
-        />
+        <ExpenseTable expenses={expenses} />
       </div>
     </div>
   );

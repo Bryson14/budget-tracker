@@ -5,13 +5,19 @@ const BudgetCard = ({ category, budget_amount, current_amount }) => {
       ? budget_amount.amount
       : 0;
 
+  // for floating point errors
+  current_amount = current_amount.toFixed(2);
+
   let left_to_spend =
-    budget_amount > current_amount ? budget_amount - current_amount : 0;
+    budget_amount > current_amount
+      ? (budget_amount - current_amount).toFixed(2)
+      : 0;
 
   let card_style_class = "card card-block mb-3 px-3 pb-2";
+  // setting message for card color
   let message = `  |  ${Math.round(
     (current_amount * 100) / budget_amount
-  )}% usage`;
+  )}% Usage`;
 
   if (budget_amount === 0 && current_amount === 0) {
     // Strange empty budget card, but just handling case
@@ -38,25 +44,16 @@ const BudgetCard = ({ category, budget_amount, current_amount }) => {
   }
 
   return (
-<<<<<<< HEAD
-    <div className={card_style_class}>
-      <div className="card-body"> </div>
-      <h5 className="card-title">{category}</h5>
-      <p className="card-subtitle mb-2">Remaining: ${left_to_spend}</p>
-      <h6 className="card-text">Budget: ${budget_amount}</h6>
-      <p className="card-text">
-        Spent: {current_amount} {message ? `${message}` : ""}
-=======
-    <div className="card card-block p-2">
-      <div className="card-body"> </div>
-      <h5 className="card-title">{category}</h5>
-      <h6 className="card-subtitle mb-2 text-muted">
-        Budget: ${budget_amount}
-      </h6>
-      <p className="card-text ">
-        Spent: ${current_amount == null ? 0 : current_amount}
->>>>>>> 98dd403f26254f41882984ea9818179d2a746321
-      </p>
+    <div className="col-md-10 col-lg-4">
+      <div className={card_style_class}>
+        <div className="card-body"> </div>
+        <h5 className="card-title">{category}</h5>
+        <p className="card-subtitle mb-2">Remaining: ${left_to_spend}</p>
+        <h6 className="card-text">Budget: ${budget_amount}</h6>
+        <p className="card-text">
+          Spent: {current_amount} {message ? `${message}` : ""}
+        </p>
+      </div>
     </div>
   );
 };

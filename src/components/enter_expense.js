@@ -55,7 +55,6 @@ const EnterExpense = ({ addExpense, categories }) => {
       setNoteInputStyle(goodInputStyle);
     }
     // setting category label and input to okay or error
-    debugger;
     if (category === "") {
       setCategoryLabelStyle(badLabelStyle);
       setCategorySelectStyle(badInputStyle);
@@ -65,7 +64,6 @@ const EnterExpense = ({ addExpense, categories }) => {
       setCategorySelectStyle(goodInputStyle);
     }
     // setting date label and input to okay or error
-    debugger;
     if (date === "") {
       setDateLabelStyle(badLabelStyle);
       setDateInputStyle(badInputStyle);
@@ -96,8 +94,7 @@ const EnterExpense = ({ addExpense, categories }) => {
     }
   };
 
-  const handleChange = (data, e) => {
-    debugger;
+  const handleChange = (data) => (e) => {
     switch (data) {
       case "amount":
         setAmount(e.target.value);
@@ -125,7 +122,7 @@ const EnterExpense = ({ addExpense, categories }) => {
   };
 
   return (
-    <div className="container-fluid m-4">
+    <div className="container-fluid m-2">
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label className={dateLabelStyle} htmlFor="dateinput">
@@ -135,7 +132,7 @@ const EnterExpense = ({ addExpense, categories }) => {
             type="date"
             className={dateInputStyle}
             value={date}
-            onChange={(e) => handleChange("date", e)}
+            onChange={handleChange("date")}
           />
         </div>
         <div className="form-group">
@@ -146,7 +143,7 @@ const EnterExpense = ({ addExpense, categories }) => {
             type="number"
             className={amountInputStyle}
             value={amount}
-            onChange={(e) => handleChange("amount", e)}
+            onChange={handleChange("amount")}
             pattern="\d*"
             id="amountinput"
             aria-describedby="amountHelp"
@@ -163,7 +160,7 @@ const EnterExpense = ({ addExpense, categories }) => {
           <select
             className={categorySelectStyle}
             value={category}
-            onChange={(e) => handleChange("category", e)}
+            onChange={handleChange("category")}
           >
             <option selected value="">
               Choose...
@@ -178,7 +175,7 @@ const EnterExpense = ({ addExpense, categories }) => {
           <input
             type="text"
             value={note}
-            onChange={(e) => handleChange("note", e)}
+            onChange={handleChange("note")}
             className={noteInputStyle}
             id="noteInput"
             aria-describedby="noteHelp"
