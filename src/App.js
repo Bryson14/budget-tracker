@@ -1,6 +1,6 @@
 import "./App.css";
 import ExpenseTable from "./components/expense_table";
-import Login from "./components/login";
+import BudgetCard from "./components/budget_card";
 import EnterExpense from "./components/enter_expense";
 import { useState, useEffect } from "react";
 var Airtable = require("airtable");
@@ -106,11 +106,40 @@ function App() {
     get_categories_from_airtable();
   }, []);
 
+  // calculating the actual amounts spend by iterating over the expense transactions
+  let actual_budget_spent = {};
+  expenses.forEach((expense) => {
+    if (actual_budget_spent.hasOwnProperty(expense.category)) {
+      actual_budget_spent[expense.category] += expense.amount;
+    } else {
+      actual_budget_spent[expense.category] = expense.amount;
+    }
+  });
+
+  // creating a look up dictionary between the name and index spot in categories
+  let name_index_category_dict = {};
+  categories.forEach((category, idx) => {
+    name_index_category_dict[category.name] = idx;
+  });
+
   return (
     <div className="container m-4 p-4">
       <h1>Budget Tracker</h1>
       <EnterExpense addExpense={addExpense} categories={categories} />
       {/* <Login /> */}
+      {Object.entries(actual_budget_spent).map(([key, value]) => {
+        // Pretty straightforward - use key for the key and value for the value.
+        // Just to clarify: unlike object destructuring, the parameter names don't matter here.
+
+        return (
+          <BudgetCard
+            category={key}
+            budget_amount={categories[name_index_category_dict[key]]}
+            current_amount={value}
+          />
+        );
+      })}
+
       <div className="container m-3 p-3">
         <ExpenseTable expenses={expenses} />
       </div>
