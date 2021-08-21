@@ -144,7 +144,7 @@ const EnterExpense = ({ addExpense, categories }) => {
             className={amountInputStyle}
             value={amount}
             onChange={handleChange("amount")}
-            pattern="\d*"
+            pattern="^\d+\.\d{0,2}$"
             id="amountinput"
             aria-describedby="amountHelp"
             placeholder="Enter Expense Amount"

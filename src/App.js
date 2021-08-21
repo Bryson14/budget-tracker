@@ -124,9 +124,8 @@ function App() {
     name_index_category_dict[category.name] = idx;
     actual_budget_spent.total_budget += category.amount;
   });
-  debugger;
   return (
-    <div className="container m-4 p-4 text-center">
+    <div className="container p-4 text-center">
       <h1>Budget Tracker</h1>
       <small>
         Spent ${actual_budget_spent.total_spent.toFixed(2)} of $
