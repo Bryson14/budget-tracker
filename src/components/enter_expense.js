@@ -141,10 +141,10 @@ const EnterExpense = ({ addExpense, categories }) => {
           </label>
           <input
             type="number"
+            step="0.01"
             className={amountInputStyle}
             value={amount}
             onChange={handleChange("amount")}
-            pattern="^\d+\.\d{0,2}$"
             id="amountinput"
             aria-describedby="amountHelp"
             placeholder="Enter Expense Amount"
