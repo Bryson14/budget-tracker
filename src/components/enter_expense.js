@@ -8,10 +8,10 @@ const EnterExpense = ({ addExpense, categories }) => {
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
 
-  const goodLabelStyle = "mr-3";
-  const badLabelStyle = "mr-3 text-danger";
-  const goodInputStyle = "my-1";
-  const badInputStyle = "my-1 form-control is-invalid";
+  const goodLabelStyle = "col-sm-2 col-form-label";
+  const badLabelStyle = "text-danger col-sm-2 col-form-label";
+  const goodInputStyle = "form-control";
+  const badInputStyle = "form-control is-invalid";
 
   const [dateLabelStyle, setDateLabelStyle] = useState(goodLabelStyle);
   const [dateInputStyle, setDateInputStyle] = useState(goodInputStyle);
@@ -122,12 +122,12 @@ const EnterExpense = ({ addExpense, categories }) => {
   };
 
   return (
-    <div className="container-fluid m-2">
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label className={dateLabelStyle} htmlFor="dateinput">
-            Date
-          </label>
+    <form onSubmit={handleSubmit}>
+      <div className="form-group row">
+        <label className={dateLabelStyle} htmlFor="dateinput">
+          Date
+        </label>
+        <div class="col-sm-10">
           <input
             type="date"
             className={dateInputStyle}
@@ -135,10 +135,12 @@ const EnterExpense = ({ addExpense, categories }) => {
             onChange={handleChange("date")}
           />
         </div>
-        <div className="form-group">
-          <label className={amountLabelStyle} htmlFor="amountinput">
-            Amount
-          </label>
+      </div>
+      <div className="form-group row">
+        <label className={amountLabelStyle} htmlFor="amountinput">
+          Amount
+        </label>
+        <div class="col-sm-10">
           <input
             type="number"
             step="0.01"
@@ -149,14 +151,13 @@ const EnterExpense = ({ addExpense, categories }) => {
             aria-describedby="amountHelp"
             placeholder="Enter Expense Amount"
           />
-          <small id="amountHelp" className="form-text text-muted">
-            Remember the change!
-          </small>
         </div>
-        <div className="form-group">
-          <label className={categoryLabelStyle} htmlFor="categorySelect">
-            Category
-          </label>
+      </div>
+      <div className="form-group row">
+        <label className={categoryLabelStyle} htmlFor="categorySelect">
+          Category
+        </label>
+        <div class="col-sm-10">
           <select
             className={categorySelectStyle}
             value={category}
@@ -168,10 +169,12 @@ const EnterExpense = ({ addExpense, categories }) => {
             {categoriesOptions}
           </select>
         </div>
-        <div className="form-group">
-          <label className={noteLabelStyle} htmlFor="noteInput">
-            Note
-          </label>
+      </div>
+      <div className="form-group row">
+        <label className={noteLabelStyle} htmlFor="noteInput">
+          Note
+        </label>
+        <div class="col-sm-10">
           <input
             type="text"
             value={note}
@@ -181,15 +184,14 @@ const EnterExpense = ({ addExpense, categories }) => {
             aria-describedby="noteHelp"
             placeholder="And it came to pass..."
           />
-          <small id="noteHelp" className="form-text text-muted">
-            Add the store name or other details to remember this.
-          </small>
         </div>
+      </div>
+      <div className="form-group row justify-content-center">
         <button type="submit" className="btn btn-primary">
           Submit
         </button>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 

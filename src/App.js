@@ -125,13 +125,18 @@ function App() {
     actual_budget_spent.total_budget += category.amount;
   });
   return (
-    <div className="container p-4 text-center">
+    <div className="container-fluid p-2 text-center">
       <h1>Budget Tracker</h1>
       <small>
         Spent ${actual_budget_spent.total_spent.toFixed(2)} of $
         {actual_budget_spent.total_budget}
       </small>
-      <EnterExpense addExpense={addExpense} categories={categories} />
+      <div class="row d-flex justify-content-center mt-2">
+        <div class="col-md-6">
+          <EnterExpense addExpense={addExpense} categories={categories} />
+        </div>
+      </div>
+
       {/* <Login /> */}
       <div className="container-fluid">
         {Object.entries(actual_budget_spent).map(([key, value]) => {
