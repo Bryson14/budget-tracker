@@ -13,7 +13,7 @@ const BudgetCard = ({ category, budget_amount, current_amount }) => {
       ? (budget_amount - current_amount).toFixed(2)
       : 0;
 
-  let card_style_class = "card card-block mb-3 px-3 pb-2";
+  let card_style_class = "card card-block h-100";
   // setting message for card color
   let message = `  |  ${Math.round(
     (current_amount * 100) / budget_amount
@@ -44,15 +44,16 @@ const BudgetCard = ({ category, budget_amount, current_amount }) => {
   }
 
   return (
-    <div className="col-md-10 col-lg-4">
+    <div className="col-8 col-md-4 col-no-padding">
       <div className={card_style_class}>
-        <div className="card-body"> </div>
-        <h5 className="card-title">{category}</h5>
-        <p className="card-subtitle mb-2">Remaining: ${left_to_spend}</p>
-        <h6 className="card-text">Budget: ${budget_amount}</h6>
-        <p className="card-text">
-          Spent: {current_amount} {message ? `${message}` : ""}
-        </p>
+        <h5 className="card-title pt-3">{category}</h5>
+        <div className="card-body text-left">
+          <p className="card-subtitle mb-2">Remaining: ${left_to_spend}</p>
+          <h6 className="card-text">Budget: ${budget_amount}</h6>
+          <h6 className="card-text">
+            Spent: {current_amount} {message ? `${message}` : ""}
+          </h6>
+        </div>
       </div>
     </div>
   );

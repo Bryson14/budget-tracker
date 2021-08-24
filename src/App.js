@@ -139,24 +139,21 @@ function App() {
 
       {/* <Login /> */}
       <div className="container-fluid">
-        {Object.entries(actual_budget_spent).map(([key, value]) => {
-          // Pretty straightforward - use key for the key and value for the value.
-          // Just to clarify: unlike object destructuring, the parameter names don't matter here.
-
-          // to keep the meta data in actual_budget_spent from being made into a category card
-          if (key === "total_spent" || key === "total_budget") {
-            return <></>;
-          }
-          return (
-            <div className="row d-flex flex-row flex-nowrap overflow-auto">
+        <div className="row flex-row flex-nowrap overflow-auto">
+          {Object.entries(actual_budget_spent).map(([key, value]) => {
+            // to keep the meta data in actual_budget_spent from being made into a category card
+            if (key === "total_spent" || key === "total_budget") {
+              return <></>;
+            }
+            return (
               <BudgetCard
                 category={key}
                 budget_amount={categories[name_index_category_dict[key]]}
                 current_amount={value}
               />
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
 
       <div className="container m-1 p-1">
