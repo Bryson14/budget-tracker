@@ -8,8 +8,8 @@ const EnterExpense = ({ addExpense, categories }) => {
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
 
-  const goodLabelStyle = "col-sm-2 col-form-label";
-  const badLabelStyle = "text-danger col-sm-2 col-form-label";
+  const goodLabelStyle = "col-sm-4 col-form-label text-white";
+  const badLabelStyle = "text-danger col-sm-4 col-form-label text-white";
   const goodInputStyle = "form-control";
   const badInputStyle = "form-control is-invalid";
 
@@ -110,7 +110,7 @@ const EnterExpense = ({ addExpense, categories }) => {
         today = today.slice(0, today.indexOf("T"));
         if (e.target.value > today) {
           alert("Cannot have an expense in the future.");
-          setDate("");
+          setDate(today);
           return;
         }
         setDate(e.target.value);
@@ -122,12 +122,12 @@ const EnterExpense = ({ addExpense, categories }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="px-4">
       <div className="form-group row">
         <label className={dateLabelStyle} htmlFor="dateinput">
           Date
         </label>
-        <div class="col-sm-10">
+        <div class="col-sm-8">
           <input
             type="date"
             className={dateInputStyle}
@@ -140,7 +140,7 @@ const EnterExpense = ({ addExpense, categories }) => {
         <label className={amountLabelStyle} htmlFor="amountinput">
           Amount
         </label>
-        <div class="col-sm-10">
+        <div class="col-sm-8">
           <input
             type="number"
             step="0.01"
@@ -157,7 +157,7 @@ const EnterExpense = ({ addExpense, categories }) => {
         <label className={categoryLabelStyle} htmlFor="categorySelect">
           Category
         </label>
-        <div class="col-sm-10">
+        <div class="col-sm-8">
           <select
             className={categorySelectStyle}
             value={category}
@@ -174,7 +174,7 @@ const EnterExpense = ({ addExpense, categories }) => {
         <label className={noteLabelStyle} htmlFor="noteInput">
           Note
         </label>
-        <div class="col-sm-10">
+        <div class="col-sm-8">
           <input
             type="text"
             value={note}
@@ -182,7 +182,7 @@ const EnterExpense = ({ addExpense, categories }) => {
             className={noteInputStyle}
             id="noteInput"
             aria-describedby="noteHelp"
-            placeholder="And it came to pass..."
+            placeholder="You spent what on WHAT??.."
           />
         </div>
       </div>

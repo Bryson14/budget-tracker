@@ -126,19 +126,23 @@ function App() {
   });
   return (
     <div className="container-fluid p-2 text-center">
-      <h1>Budget Tracker</h1>
-      <small>
-        Spent ${actual_budget_spent.total_spent.toFixed(2)} of $
-        {actual_budget_spent.total_budget}
-      </small>
-      <div class="row d-flex justify-content-center mt-2">
-        <div class="col-md-6">
-          <EnterExpense addExpense={addExpense} categories={categories} />
+      <div className="form-div">
+        <h1 className="text-white">Budget Tracker</h1>
+        <small className="text-light">
+          Spent ${actual_budget_spent.total_spent.toFixed(2)} of $
+          {actual_budget_spent.total_budget}
+        </small>
+        <div class="row d-flex justify-content-center mt-2">
+          <div class="col-md-6">
+            <EnterExpense addExpense={addExpense} categories={categories} />
+          </div>
         </div>
       </div>
+      <hr />
 
       {/* <Login /> */}
-      <div className="container-fluid">
+      <div className="container-fluid ">
+        <h2>Categories</h2>
         <div className="row flex-row flex-nowrap overflow-auto">
           {Object.entries(actual_budget_spent).map(([key, value]) => {
             // to keep the meta data in actual_budget_spent from being made into a category card
@@ -155,8 +159,9 @@ function App() {
           })}
         </div>
       </div>
+      <hr />
 
-      <div className="container m-1 p-1">
+      <div className="">
         <h2>Expenses</h2>
         <ExpenseTable expenses={expenses} />
       </div>
