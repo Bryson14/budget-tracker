@@ -10,6 +10,12 @@ var base = new Airtable({ apiKey: api_key }).base("app5VP16VBp5NgMg5");
 function App() {
   const [expenses, setExpenses] = useState([]);
   const [categories, setCategories] = useState([]);
+  const [tableVisible, setTableVisible] = useState(true);
+
+  const changeVisible = () => {
+    debugger;
+    setTableVisible(!tableVisible);
+  };
 
   const addExpense = (expense) => {
     if (
@@ -71,7 +77,6 @@ function App() {
           // This function (`page`) will get called for each page of records.
 
           records.forEach(function (record) {
-            console.log("Retrieved category:", record.get("Name"));
             list_records.push(record.fields);
           });
 
@@ -127,7 +132,7 @@ function App() {
   return (
     <div className="container-fluid p-2 text-center">
       <div className="form-div">
-        <h1 className="text-white">Budget Tracker</h1>
+        <h1 className="text-white pt-3">Budget Tracker 💸</h1>
         <small className="text-light">
           Spent ${actual_budget_spent.total_spent.toFixed(2)} of $
           {actual_budget_spent.total_budget}
@@ -162,8 +167,10 @@ function App() {
       <hr />
 
       <div className="">
-        <h2>Expenses</h2>
-        <ExpenseTable expenses={expenses} />
+        <div onClick={changeVisible} style={{ cursor: "pointer" }}>
+          <h2>Expenses ▼</h2>
+        </div>
+        <ExpenseTable expenses={expenses} tableVisible={tableVisible} />
       </div>
     </div>
   );

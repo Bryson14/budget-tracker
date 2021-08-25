@@ -1,8 +1,14 @@
 import ExpenseRow from "./expense_row";
 
-const ExpenseTable = ({ expenses, setSpentPerCategory }) => {
+const ExpenseTable = ({ expenses, tableVisible }) => {
+  let visibilityStyle = {
+    visibility: tableVisible != null && !tableVisible ? "hidden" : "visible",
+  };
   return (
-    <table className="table table-striped table-dark table-hover align-middle">
+    <table
+      style={visibilityStyle}
+      className="table table-striped table-dark table-hover align-middle"
+    >
       <thead>
         <tr>
           <th scope="col">Date</th>
