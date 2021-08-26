@@ -13,7 +13,6 @@ function App() {
   const [tableVisible, setTableVisible] = useState(false);
 
   const changeVisible = () => {
-    debugger;
     setTableVisible(!tableVisible);
   };
 
@@ -142,13 +141,24 @@ function App() {
     }
   });
 
+  // calculating what you have to spend today.
+  let today = new Date();
+  let time = new Date(today.getTime());
+  time.setMonth(today.getMonth() + 1);
+  time.setDate(0);
+  let days =
+    time.getDate() > today.getDate() ? time.getDate() - today.getDate() : 0;
+  let days_in_month = today.getDate() + days;
+  let daily_spend = actual_budget_spent.total_budget / days_in_month;
+  let todays_budget =
+    daily_spend * days_in_month - actual_budget_spent.total_spent;
+
   return (
     <div className="container-fluid p-2 text-center">
       <div className="form-div">
         <h1 className="text-white pt-3">Budget Tracker 💸</h1>
         <small className="text-light">
-          Spent ${actual_budget_spent.total_spent.toFixed(2)} of $
-          {actual_budget_spent.total_budget}
+          Today's Budget: ${todays_budget.toFixed(2)}
         </small>
         <div class="row d-flex justify-content-center mt-2">
           <div class="col-md-6">
@@ -183,6 +193,10 @@ function App() {
       <div className="">
         <div onClick={changeVisible} style={{ cursor: "pointer" }}>
           <h2>Expenses ▼</h2>
+          <small className="mb-2">
+            Spent ${actual_budget_spent.total_spent.toFixed(2)} of $
+            {actual_budget_spent.total_budget}
+          </small>
         </div>
         <ExpenseTable expenses={expenses} tableVisible={tableVisible} />
       </div>

@@ -30,16 +30,20 @@ const EnterExpense = ({
   let categoriesOptions =
     categories.length > 0 &&
     categories.map((item, i) => {
+      let left_to_spend = "";
+      if (
+        category_amount_remaining[item.name] != null &&
+        category_amount_remaining[item.name] > 0
+      ) {
+        left_to_spend =
+          "$" + String(Math.round(category_amount_remaining[item.name]));
+        left_to_spend = left_to_spend.padEnd(5) + "- ";
+      } else {
+        left_to_spend = "$0".padEnd(5) + "- ";
+      }
       return (
         <option key={i} value={item.name}>
-          {category_amount_remaining[item.name] != null
-            ? `$${
-                category_amount_remaining[item.name] > 0
-                  ? Math.round(category_amount_remaining[item.name])
-                  : 0
-              }  `
-            : ""}
-
+          {left_to_spend}
           {item.name}
         </option>
       );
@@ -161,7 +165,7 @@ const EnterExpense = ({
             onChange={handleChange("amount")}
             id="amountinput"
             aria-describedby="amountHelp"
-            placeholder="Enter Expense Amount"
+            placeholder="Amount"
           />
         </div>
       </div>
@@ -194,7 +198,7 @@ const EnterExpense = ({
             className={noteInputStyle}
             id="noteInput"
             aria-describedby="noteHelp"
-            placeholder="You spent what on WHAT??.."
+            placeholder="Description"
           />
         </div>
       </div>
