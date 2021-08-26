@@ -1,6 +1,10 @@
 import { useState } from "react";
 
-const EnterExpense = ({ addExpense, categories }) => {
+const EnterExpense = ({
+  addExpense,
+  categories,
+  category_amount_remaining,
+}) => {
   var today = new Date().toISOString();
   today = today.slice(0, today.indexOf("T"));
   const [date, setDate] = useState(today);
@@ -28,6 +32,14 @@ const EnterExpense = ({ addExpense, categories }) => {
     categories.map((item, i) => {
       return (
         <option key={i} value={item.name}>
+          {category_amount_remaining[item.name] != null
+            ? `$${
+                category_amount_remaining[item.name] > 0
+                  ? Math.round(category_amount_remaining[item.name])
+                  : 0
+              }  `
+            : ""}
+
           {item.name}
         </option>
       );

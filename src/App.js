@@ -10,7 +10,7 @@ var base = new Airtable({ apiKey: api_key }).base("app5VP16VBp5NgMg5");
 function App() {
   const [expenses, setExpenses] = useState([]);
   const [categories, setCategories] = useState([]);
-  const [tableVisible, setTableVisible] = useState(true);
+  const [tableVisible, setTableVisible] = useState(false);
 
   const changeVisible = () => {
     debugger;
@@ -129,6 +129,19 @@ function App() {
     name_index_category_dict[category.name] = idx;
     actual_budget_spent.total_budget += category.amount;
   });
+
+  // calculating the current amount spent and amount left to spend from categories and transactions info
+  // can be less than zero, each component that uses the data can decide if it wants to turn negatives to $0
+  let category_amount_remaining = {};
+  categories.forEach((category, idx) => {
+    // data from the 2 async fetchs might take a big
+    if (actual_budget_spent.hasOwnProperty(category.name)) {
+      let amount_left = category.amount - actual_budget_spent[category.name];
+      category_amount_remaining[category.name] =
+        amount_left != null ? amount_left : 0;
+    }
+  });
+
   return (
     <div className="container-fluid p-2 text-center">
       <div className="form-div">
@@ -139,7 +152,11 @@ function App() {
         </small>
         <div class="row d-flex justify-content-center mt-2">
           <div class="col-md-6">
-            <EnterExpense addExpense={addExpense} categories={categories} />
+            <EnterExpense
+              addExpense={addExpense}
+              categories={categories}
+              category_amount_remaining={category_amount_remaining}
+            />
           </div>
         </div>
       </div>
@@ -149,16 +166,13 @@ function App() {
       <div className="container-fluid ">
         <h2>Categories</h2>
         <div className="row flex-row flex-nowrap overflow-auto">
-          {Object.entries(actual_budget_spent).map(([key, value]) => {
+          {categories.map((category) => {
             // to keep the meta data in actual_budget_spent from being made into a category card
-            if (key === "total_spent" || key === "total_budget") {
-              return <></>;
-            }
             return (
               <BudgetCard
-                category={key}
-                budget_amount={categories[name_index_category_dict[key]]}
-                current_amount={value}
+                category={category.name}
+                budget_amount={category.amount}
+                amount_remaining={category_amount_remaining[category.name]}
               />
             );
           })}
