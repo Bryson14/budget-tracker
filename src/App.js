@@ -160,8 +160,8 @@ function App() {
         <small className="text-light">
           Today's Budget: ${todays_budget.toFixed(2)}
         </small>
-        <div class="row d-flex justify-content-center mt-2">
-          <div class="col-md-6">
+        <div className="row d-flex justify-content-center mt-2">
+          <div className="col-md-6">
             <EnterExpense
               addExpense={addExpense}
               categories={categories}
@@ -176,13 +176,17 @@ function App() {
       <div className="container-fluid ">
         <h2>Categories</h2>
         <div className="row flex-row flex-nowrap overflow-auto">
-          {categories.map((category) => {
+          {categories.map((category, idx) => {
             // to keep the meta data in actual_budget_spent from being made into a category card
             return (
               <BudgetCard
+                key={idx}
                 category={category.name}
                 budget_amount={category.amount}
                 amount_remaining={category_amount_remaining[category.name]}
+                category_transactions={expenses.filter(
+                  (expense) => expense.category === category.name
+                )}
               />
             );
           })}
@@ -192,7 +196,7 @@ function App() {
 
       <div className="">
         <div onClick={changeVisible} style={{ cursor: "pointer" }}>
-          <h2>Expenses ▼</h2>
+          <h2> Expenses {tableVisible ? "˄" : "˅"} </h2>
           <small className="mb-2">
             Spent ${actual_budget_spent.total_spent.toFixed(2)} of $
             {actual_budget_spent.total_budget}

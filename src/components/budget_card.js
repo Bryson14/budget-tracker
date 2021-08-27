@@ -1,4 +1,12 @@
-const BudgetCard = ({ category, budget_amount, amount_remaining }) => {
+import ModalExpenses from "./modal_expenses";
+import { useState } from "react";
+
+const BudgetCard = ({
+  category,
+  budget_amount,
+  amount_remaining,
+  category_transactions,
+}) => {
   // amount_remaining is what the actual left on the budget
   // budget_amount and amount_remaining may be passed in as undefined
   budget_amount = budget_amount != null ? budget_amount : 0;
@@ -35,21 +43,34 @@ const BudgetCard = ({ category, budget_amount, amount_remaining }) => {
     card_style_class += " text-white bg-success";
   }
 
+  const [modalVisible, setModalVisible] = useState(false);
+  const showModal = () => {
+    debugger;
+    setModalVisible(!modalVisible);
+  };
   return (
-    <div className="col-8 col-md-4 col-no-padding">
-      <div className={card_style_class}>
-        <h5 className="card-title pt-3">{category}</h5>
-        <div className="card-body text-left">
-          <p className="card-subtitle mb-2">
-            Remaining: ${left_to_spend.toFixed(2)}
-          </p>
-          <h6 className="card-text">Budget: ${budget_amount}</h6>
-          <h6 className="card-text">
-            Spent: {spent.toFixed(2)} {message ? `${message}` : ""}
-          </h6>
+    <>
+      <div className="col-8 col-md-4 col-no-padding">
+        <div className={card_style_class} onClick={showModal}>
+          <h5 className="card-title pt-3">{category}</h5>
+          <div className="card-body text-left">
+            <p className="card-subtitle mb-2">
+              Remaining: ${left_to_spend.toFixed(2)}
+            </p>
+            <h6 className="card-text">Budget: ${budget_amount}</h6>
+            <h6 className="card-text">
+              Spent: {spent.toFixed(2)} {message ? `${message}` : ""}
+            </h6>
+          </div>
         </div>
       </div>
-    </div>
+      <ModalExpenses
+        category_name={category}
+        expenses={category_transactions}
+        show={modalVisible}
+        close_event={showModal}
+      />
+    </>
   );
 };
 

@@ -143,7 +143,7 @@ const EnterExpense = ({
         <label className={dateLabelStyle} htmlFor="dateinput">
           Date
         </label>
-        <div class="col-sm-8">
+        <div className="col-sm-8">
           <input
             type="date"
             className={dateInputStyle}
@@ -156,7 +156,7 @@ const EnterExpense = ({
         <label className={amountLabelStyle} htmlFor="amountinput">
           Amount
         </label>
-        <div class="col-sm-8">
+        <div className="col-sm-8">
           <input
             type="number"
             step="0.01"
@@ -173,15 +173,13 @@ const EnterExpense = ({
         <label className={categoryLabelStyle} htmlFor="categorySelect">
           Category
         </label>
-        <div class="col-sm-8">
+        <div className="col-sm-8">
           <select
             className={categorySelectStyle}
             value={category}
             onChange={handleChange("category")}
           >
-            <option selected value="">
-              Choose...
-            </option>
+            <option value="">Choose...</option>
             {categoriesOptions}
           </select>
         </div>
@@ -190,7 +188,7 @@ const EnterExpense = ({
         <label className={noteLabelStyle} htmlFor="noteInput">
           Note
         </label>
-        <div class="col-sm-8">
+        <div className="col-sm-8">
           <input
             type="text"
             value={note}
