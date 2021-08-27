@@ -1,7 +1,6 @@
 import ExpenseTable from "./expense_table";
 
 const ModalExpenses = ({ category_name, expenses, show, close_event }) => {
-  debugger;
   return (
     <div
       className="modal"

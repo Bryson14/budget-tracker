@@ -45,8 +45,13 @@ const BudgetCard = ({
 
   const [modalVisible, setModalVisible] = useState(false);
   const showModal = () => {
-    debugger;
-    setModalVisible(!modalVisible);
+    let s = `Transaction for ${category}\n++++++++++++++++++++\n`;
+    category_transactions.forEach((trans) => {
+      debugger;
+      s = s + `${trans.date} - $${trans.amount} - ${trans.note}\n`;
+    });
+    alert(s);
+    // setModalVisible(!modalVisible);
   };
   return (
     <>
@@ -64,12 +69,12 @@ const BudgetCard = ({
           </div>
         </div>
       </div>
-      <ModalExpenses
+      {/* <ModalExpenses
         category_name={category}
         expenses={category_transactions}
         show={modalVisible}
         close_event={showModal}
-      />
+      /> */}
     </>
   );
 };
