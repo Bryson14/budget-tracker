@@ -1,5 +1,5 @@
-import ModalExpenses from "./modal_expenses";
-import { useState } from "react";
+// import ModalExpenses from "./modal_expenses";
+// import { useState } from "react";
 
 const BudgetCard = ({
   category,
@@ -7,10 +7,14 @@ const BudgetCard = ({
   amount_remaining,
   category_transactions,
 }) => {
+  if (category == "Car Maintenance") {
+    debugger;
+  }
   // amount_remaining is what the actual left on the budget
   // budget_amount and amount_remaining may be passed in as undefined
   budget_amount = budget_amount != null ? budget_amount : 0;
-  amount_remaining = amount_remaining != null ? amount_remaining : 0;
+  amount_remaining =
+    amount_remaining != null ? amount_remaining : budget_amount;
 
   let left_to_spend = amount_remaining > 0 ? amount_remaining : 0;
   let spent = budget_amount - amount_remaining;
@@ -43,7 +47,7 @@ const BudgetCard = ({
     card_style_class += " text-white bg-success";
   }
 
-  const [modalVisible, setModalVisible] = useState(false);
+  // const [modalVisible, setModalVisible] = useState(false);
   const showModal = () => {
     let s = `Transaction for ${category}\n++++++++++++++++++++\n`;
     category_transactions.forEach((trans) => {
