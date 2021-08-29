@@ -7,9 +7,6 @@ const BudgetCard = ({
   amount_remaining,
   category_transactions,
 }) => {
-  if (category == "Car Maintenance") {
-    debugger;
-  }
   // amount_remaining is what the actual left on the budget
   // budget_amount and amount_remaining may be passed in as undefined
   budget_amount = budget_amount != null ? budget_amount : 0;
@@ -29,30 +26,37 @@ const BudgetCard = ({
     message = "Error Card";
   } else if (budget_amount === 0 && spent > 0) {
     // spending on a category that has $0 budget
-    card_style_class += " text-white bg-danger";
+    card_style_class += " text-white budget-past-100-percent";
     message = "| No budget for this.";
   } else if (budget_amount === 0 && spent < 0) {
-    // spending on a category that has $0 budget
+    // refund on a category that has $0 budget
     card_style_class += " text-white bg-info";
     message = " | Reason: Refund?";
   } else if (spent / budget_amount > 1) {
     // 100 % usage
-    card_style_class += " text-white bg-danger";
+    card_style_class += " text-white budget-past-100-percent";
   } else if (spent / budget_amount > 0.8) {
     // approaching 80% of usage
-    card_style_class += " text-white bg-warning";
+    card_style_class += " text-white budget-between-50-100";
   } else if (spent / budget_amount > 0.5) {
     card_style_class += " text-white bg-secondary";
   } else {
-    card_style_class += " text-white bg-success";
+    card_style_class += " text-white budget-below-50";
   }
 
   // const [modalVisible, setModalVisible] = useState(false);
   const showModal = () => {
-    let s = `Transaction for ${category}\n++++++++++++++++++++\n`;
+    let s = `Transaction for ${category}`;
+    let title_len = s.length;
+    s += "\n";
+    // arbitrary magic number 6
+    for (let i = 0; i < title_len - 6; i++) {
+      s += "+";
+    }
+    s += "\n";
     category_transactions.forEach((trans) => {
       debugger;
-      s = s + `${trans.date} - $${trans.amount} - ${trans.note}\n`;
+      s += `${trans.date} - $${trans.amount} - ${trans.note}\n`;
     });
     alert(s);
     // setModalVisible(!modalVisible);

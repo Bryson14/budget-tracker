@@ -2,7 +2,7 @@ body {
   margin: 0;
   padding: 0;
   border: 0;
-  font-family: GTEestiDisplay-Regular, -apple-system, system-ui,
+  font-family: "Open Sans", GTEestiDisplay-Regular, -apple-system, system-ui,
     BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell,
     "Helvetica Neue", sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
@@ -32,5 +32,4 @@ body {
 .form-div {
   border-radius: 1rem;
   margin: 1px 10px;
-  background-color: #3e444a;
 }

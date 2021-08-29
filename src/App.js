@@ -155,7 +155,7 @@ function App() {
 
   return (
     <div className="container-fluid p-2 text-center">
-      <div className="form-div">
+      <div className="form-div enter-expense-gradient">
         <h1 className="text-white pt-3">Budget Tracker 💸</h1>
         <small className="text-light">
           Today's Budget: ${todays_budget.toFixed(2)}
