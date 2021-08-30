@@ -46,18 +46,26 @@ const BudgetCard = ({
 
   // const [modalVisible, setModalVisible] = useState(false);
   const showModal = () => {
-    let s = `Transaction for ${category}`;
+    let s = `Transaction${
+      category_transactions.length > 1 ? "s" : ""
+    } for ${category}`;
     let title_len = s.length;
     s += "\n";
-    // arbitrary magic number 6
-    for (let i = 0; i < title_len - 6; i++) {
-      s += "+";
+    // arbitrary magic number 5
+    for (let i = 0; i < title_len + 20; i++) {
+      s += "_";
     }
     s += "\n";
     category_transactions.forEach((trans) => {
-      debugger;
-      s += `${trans.date} - $${trans.amount} - ${trans.note}\n`;
+      const date_obj = new Date(trans.date);
+      const day_month_date =
+        String(date_obj.getMonth() + 1) + "/" + String(date_obj.getUTCDate());
+      s += `${day_month_date} - $${trans.amount} - ${trans.note}\n`;
     });
+
+    if (category_transactions.length === 0) {
+      s = `No transaction for ${category} this month.`;
+    }
     alert(s);
     // setModalVisible(!modalVisible);
   };
