@@ -3,11 +3,12 @@ import ExpenseRow from "./expense_row";
 const ExpenseTable = ({ expenses, tableVisible }) => {
   let visibilityStyle = {
     visibility: tableVisible != null && !tableVisible ? "hidden" : "visible",
+    overflow: "scroll",
   };
   return (
     <table
       style={visibilityStyle}
-      className="table table-striped table-dark table-hover align-middle"
+      className="table table-striped table-dark table-hover align-left"
     >
       <thead>
         <tr>
