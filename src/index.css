@@ -11,6 +11,9 @@ body {
   background-color: #eeeeee;
   font-size: 1.25rem;
   display: block;
+  background-image: url("money_bags_worse.jpg");
+  background-repeat: repeat;
+  background-size: 300px 250px;
 }
 
 code {
