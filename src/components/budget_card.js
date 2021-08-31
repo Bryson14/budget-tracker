@@ -49,13 +49,13 @@ const BudgetCard = ({
     let s = `Transaction${
       category_transactions.length > 1 ? "s" : ""
     } for ${category}`;
-    let title_len = s.length;
     s += "\n";
-    // arbitrary magic number 5
-    for (let i = 0; i < title_len + 20; i++) {
+
+    // arbitrary magic number 32 to stop text wrap on iphone
+    for (let i = 0; i < 32; i++) {
       s += "_";
     }
-    s += "\n";
+    s += "\n\n";
     category_transactions.forEach((trans) => {
       const date_obj = new Date(trans.date);
       const day_month_date =
