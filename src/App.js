@@ -138,6 +138,11 @@ function App() {
       let amount_left = category.amount - actual_budget_spent[category.name];
       category_amount_remaining[category.name] =
         amount_left != null ? amount_left : 0;
+
+      // if actual_budget_spent has gotten its data from fetch
+      // but nothing has been spent in that category
+    } else {
+      category_amount_remaining[category.name] = category.amount;
     }
   });
 
