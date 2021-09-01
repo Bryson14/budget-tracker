@@ -150,15 +150,18 @@ function App() {
     time.getDate() > today.getDate() ? time.getDate() - today.getDate() : 0;
   let days_in_month = today.getDate() + days;
   let daily_spend = actual_budget_spent.total_budget / days_in_month;
+  if (daily_spend != null) {
+    debugger;
+  }
   let todays_budget =
-    daily_spend * days_in_month - actual_budget_spent.total_spent;
+    daily_spend * today.getDate() - actual_budget_spent.total_spent;
 
   return (
     <div className="container-fluid p-2 text-center">
       <div className="form-div enter-expense-gradient">
         <h1 className="text-white pt-3">Budget Tracker 💸</h1>
         <small className="text-light">
-          Today's Budget: ${todays_budget.toFixed(2)}
+          <mark>Today's Budget: ${todays_budget.toFixed(2)}</mark>
         </small>
         <div className="row d-flex justify-content-center mt-2">
           <div className="col-md-6">
@@ -198,8 +201,10 @@ function App() {
         <div onClick={changeVisible} style={{ cursor: "pointer" }}>
           <h2> Expenses {tableVisible ? "˄" : "˅"} </h2>
           <small className="mb-2">
-            Spent ${actual_budget_spent.total_spent.toFixed(2)} of $
-            {actual_budget_spent.total_budget}
+            <mark>
+              Spent ${actual_budget_spent.total_spent.toFixed(2)} of $
+              {actual_budget_spent.total_budget}
+            </mark>
           </small>
         </div>
         <ExpenseTable expenses={expenses} tableVisible={tableVisible} />
