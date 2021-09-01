@@ -1,6 +1,6 @@
 # This app was to help with budgeting between multiple people since my favorite budget app didn't support multiple users :(
 
-    ![Image of the Budget Tracker App](https://github.com/Bryson14/budget-tracker/tree/main/docs/ScreenShot.pdf)
+    ![Image of the Budget Tracker App](https://imgur.com/a/7ErBiVP)
 
 ## Awesome features
 - Syncs with Airtable to keep records up to date between multiple users
