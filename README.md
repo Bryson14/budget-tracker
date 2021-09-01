@@ -1,6 +1,6 @@
 # This app was to help with budgeting between multiple people since my favorite budget app didn't support multiple users :(
 
-    ![Image of the Budget Tracker App](https://i.imgur.com/QvSSz1f.png)
+[Image of the Budget Tracker App](https://i.imgur.com/QvSSz1f.png)
 
 ## Awesome features
 - Syncs with Airtable to keep records up to date between multiple users
