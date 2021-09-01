@@ -1,3 +1,14 @@
+# This app was to help with budgeting between multiple people since my favorite budget app didn't support multiple users :(
+
+    ![Image of the Budget Tracker App](https://github.com/Bryson14/budget-tracker/tree/main/docs/ScreenShot.pdf)
+
+## Awesome features
+- Syncs with Airtable to keep records up to date between multiple users
+- Great style
+- Each category card is colorized according to its spending during the month. i.e. if the category gets $30/ month, but you spend $20 on the first day on the month, it will turn orange for danger because spending is off track.
+- Helpful amonuts in the drop down menu
+- Green means you're on track
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
