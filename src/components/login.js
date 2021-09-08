@@ -1,4 +1,4 @@
-const Login = () => {
+const Login = ({ setAuthenticated }) => {
   return (
     <div className="container">
       <form>

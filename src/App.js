@@ -11,6 +11,7 @@ function App() {
   const [expenses, setExpenses] = useState([]);
   const [categories, setCategories] = useState([]);
   const [tableVisible, setTableVisible] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
 
   const changeVisible = () => {
     setTableVisible(!tableVisible);
