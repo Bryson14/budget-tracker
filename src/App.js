@@ -6,6 +6,11 @@ import { useState, useEffect } from "react";
 var Airtable = require("airtable");
 const api_key = process.env.REACT_APP_API_KEY;
 var base = new Airtable({ apiKey: api_key }).base("app5VP16VBp5NgMg5");
+const crypto = require("crypto");
+debugger;
+let hash = crypto.getHashes();
+let hashPwd = crypto.createHash("sha512").update("hello").digest("hex");
+alert(hashPwd);
 
 function App() {
   const [expenses, setExpenses] = useState([]);
