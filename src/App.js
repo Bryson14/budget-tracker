@@ -9,6 +9,8 @@ const api_key = process.env.REACT_APP_API_KEY;
 var base = new Airtable({ apiKey: api_key }).base("app5VP16VBp5NgMg5");
 
 function App() {
+  const [newapikey, setNewapikey] = useState("");
+  const [basekey, setBaseKey] = useState("");
   const [expenses, setExpenses] = useState([]);
   const [categories, setCategories] = useState([]);
   const [tableVisible, setTableVisible] = useState(false);
@@ -109,8 +111,10 @@ function App() {
   }
 
   useEffect(() => {
-    get_transactions_from_airtable();
-    get_categories_from_airtable();
+    if (authenticated) {
+      get_transactions_from_airtable();
+      get_categories_from_airtable();
+    }
   }, []);
 
   // calculating the actual amounts spend by iterating over the expense transactions
@@ -162,63 +166,67 @@ function App() {
     actual_budget_spent.total_spent;
 
   return (
-    <div className="container-fluid p-2 text-center">
-      <Login />
-      <div className="form-div enter-expense-gradient">
-        <h1 className="text-white pt-3">Budget Tracker 💸</h1>
-        <small className="text-light">
-          <mark>
-            Today's Budget: <b>${todays_budget.toFixed(2)}</b>
-          </mark>
-        </small>
-        <div className="row d-flex justify-content-center mt-2">
-          <div className="col-md-6">
-            <EnterExpense
-              addExpense={addExpense}
-              categories={categories}
-              category_amount_remaining={category_amount_remaining}
-            />
+    <>
+      {!authenticated ? (
+        <Login />
+      ) : (
+        <div className="container-fluid p-2 text-center">
+          <div className="form-div enter-expense-gradient">
+            <h1 className="text-white pt-3">Budget Tracker 💸</h1>
+            <small className="text-light">
+              <mark>
+                Today's Budget: <b>${todays_budget.toFixed(2)}</b>
+              </mark>
+            </small>
+            <div className="row d-flex justify-content-center mt-2">
+              <div className="col-md-6">
+                <EnterExpense
+                  addExpense={addExpense}
+                  categories={categories}
+                  category_amount_remaining={category_amount_remaining}
+                />
+              </div>
+            </div>
+          </div>
+          <hr />
+
+          <div className="container-fluid ">
+            <h2>Categories</h2>
+            <div className="row flex-row flex-nowrap overflow-auto">
+              {categories.map((category, idx) => {
+                // to keep the meta data in actual_budget_spent from being made into a category card
+                return (
+                  <BudgetCard
+                    key={idx}
+                    category={category.name}
+                    budget_amount={category.amount}
+                    amount_remaining={category_amount_remaining[category.name]}
+                    category_transactions={expenses.filter(
+                      (expense) => expense.category === category.name
+                    )}
+                    percentage_month_completed={percentage_month_completed}
+                  />
+                );
+              })}
+            </div>
+          </div>
+          <hr />
+
+          <div className="">
+            <div onClick={changeVisible} style={{ cursor: "pointer" }}>
+              <h2> Expenses {tableVisible ? "˄" : "˅"} </h2>
+              <small className="mb-2">
+                <mark>
+                  Spent ${actual_budget_spent.total_spent.toFixed(2)} of $
+                  {actual_budget_spent.total_budget}
+                </mark>
+              </small>
+            </div>
+            <ExpenseTable expenses={expenses} tableVisible={tableVisible} />
           </div>
         </div>
-      </div>
-      <hr />
-
-      {/* <Login /> */}
-      <div className="container-fluid ">
-        <h2>Categories</h2>
-        <div className="row flex-row flex-nowrap overflow-auto">
-          {categories.map((category, idx) => {
-            // to keep the meta data in actual_budget_spent from being made into a category card
-            return (
-              <BudgetCard
-                key={idx}
-                category={category.name}
-                budget_amount={category.amount}
-                amount_remaining={category_amount_remaining[category.name]}
-                category_transactions={expenses.filter(
-                  (expense) => expense.category === category.name
-                )}
-                percentage_month_completed={percentage_month_completed}
-              />
-            );
-          })}
-        </div>
-      </div>
-      <hr />
-
-      <div className="">
-        <div onClick={changeVisible} style={{ cursor: "pointer" }}>
-          <h2> Expenses {tableVisible ? "˄" : "˅"} </h2>
-          <small className="mb-2">
-            <mark>
-              Spent ${actual_budget_spent.total_spent.toFixed(2)} of $
-              {actual_budget_spent.total_budget}
-            </mark>
-          </small>
-        </div>
-        <ExpenseTable expenses={expenses} tableVisible={tableVisible} />
-      </div>
-    </div>
+      )}
+    </>
   );
 }
 
