@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Login = ({ setAuthenticated, setApiKey }) => {
+const Login = ({ setApiKey }) => {
   const [password, setPassword] = useState("");
   const specialCharacters = new Set(
     "~`!@#$%^&*()-_=+{[}}\\|:;<,>.?/".split("")
@@ -49,8 +49,11 @@ const Login = ({ setAuthenticated, setApiKey }) => {
           var api_key = decipherkey.update(encrypted_api_key, "hex", "utf8");
           api_key += decipherkey.final("utf8");
           console.log("decyphered", api_key);
+          localStorage.setItem("apiKey", api_key);
           setApiKey(api_key);
-          setAuthenticated(true);
+        } else {
+          alert("Incorrect");
+          setPassword("");
         }
       }
     }

@@ -8,11 +8,13 @@ var Airtable = require("airtable");
 var base = null;
 
 function App() {
-  const [apiKey, setApiKey] = useState("");
+  debugger;
+  const [apiKey, setApiKey] = useState(
+    localStorage.getItem("apiKey") == null ? "" : localStorage.getItem("apiKey")
+  );
   const [expenses, setExpenses] = useState([]);
   const [categories, setCategories] = useState([]);
   const [tableVisible, setTableVisible] = useState(false);
-  const [authenticated, setAuthenticated] = useState(false);
 
   const changeVisible = () => {
     setTableVisible(!tableVisible);
@@ -109,12 +111,14 @@ function App() {
   }
 
   useEffect(() => {
-    if (authenticated) {
+    debugger;
+    if (apiKey) {
+      debugger;
       base = new Airtable({ apiKey: apiKey }).base("app5VP16VBp5NgMg5");
       get_transactions_from_airtable();
       get_categories_from_airtable();
     }
-  }, []);
+  }, [apiKey]);
 
   // calculating the actual amounts spend by iterating over the expense transactions
   let actual_budget_spent = { total_spent: 0, total_budget: 0 };
@@ -166,8 +170,8 @@ function App() {
 
   return (
     <>
-      {!authenticated ? (
-        <Login setApiKey={setApiKey} setAuthenticated={setAuthenticated} />
+      {!apiKey ? (
+        <Login setApiKey={setApiKey} />
       ) : (
         <div className="container-fluid p-2 text-center">
           <div className="form-div enter-expense-gradient">
