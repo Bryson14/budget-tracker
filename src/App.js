@@ -8,7 +8,6 @@ var Airtable = require("airtable");
 var base = null;
 
 function App() {
-  debugger;
   const [apiKey, setApiKey] = useState(
     localStorage.getItem("apiKey") == null ? "" : localStorage.getItem("apiKey")
   );
@@ -111,9 +110,7 @@ function App() {
   }
 
   useEffect(() => {
-    debugger;
     if (apiKey) {
-      debugger;
       base = new Airtable({ apiKey: apiKey }).base("app5VP16VBp5NgMg5");
       get_transactions_from_airtable();
       get_categories_from_airtable();

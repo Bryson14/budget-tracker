@@ -44,11 +44,11 @@ const Login = ({ setApiKey }) => {
           // decrypt the api keys with only password
 
           var decipherkey = crypto.createDecipher("aes-128-cbc", password);
-          const encrypted_api_key =
-            "b320e99d0d4f644ad42add3bfa1fbc11ba4310226a4d71f4e178ee58f8eeb662";
+          const encrypted_api_key = String(
+            process.env.REACT_APP_ENCRYPTED_API_KEY
+          );
           var api_key = decipherkey.update(encrypted_api_key, "hex", "utf8");
           api_key += decipherkey.final("utf8");
-          console.log("decyphered", api_key);
           localStorage.setItem("apiKey", api_key);
           setApiKey(api_key);
         } else {
