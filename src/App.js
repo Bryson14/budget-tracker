@@ -5,12 +5,10 @@ import EnterExpense from "./components/enter_expense";
 import { useState, useEffect } from "react";
 import Login from "./components/login";
 var Airtable = require("airtable");
-const api_key = process.env.REACT_APP_API_KEY;
-var base = new Airtable({ apiKey: api_key }).base("app5VP16VBp5NgMg5");
+var base = null;
 
 function App() {
-  const [newapikey, setNewapikey] = useState("");
-  const [basekey, setBaseKey] = useState("");
+  const [apiKey, setApiKey] = useState("");
   const [expenses, setExpenses] = useState([]);
   const [categories, setCategories] = useState([]);
   const [tableVisible, setTableVisible] = useState(false);
@@ -112,6 +110,7 @@ function App() {
 
   useEffect(() => {
     if (authenticated) {
+      base = new Airtable({ apiKey: apiKey }).base("app5VP16VBp5NgMg5");
       get_transactions_from_airtable();
       get_categories_from_airtable();
     }
@@ -168,7 +167,7 @@ function App() {
   return (
     <>
       {!authenticated ? (
-        <Login />
+        <Login setApiKey={setApiKey} setAuthenticated={setAuthenticated} />
       ) : (
         <div className="container-fluid p-2 text-center">
           <div className="form-div enter-expense-gradient">
