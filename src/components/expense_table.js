@@ -1,6 +1,6 @@
 import ExpenseRow from "./expense_row";
 
-const ExpenseTable = ({ expenses, tableVisible }) => {
+const ExpenseTable = ({ expenses, tableVisible, removeTransaction }) => {
   let visibilityStyle = {
     visibility: tableVisible != null && !tableVisible ? "hidden" : "visible",
     overflow: "scroll",
@@ -8,7 +8,7 @@ const ExpenseTable = ({ expenses, tableVisible }) => {
   return (
     <table
       style={visibilityStyle}
-      className="table table-striped table-dark table-hover align-left"
+      className="table table-striped table-dark table-hover align-left table-condensed"
     >
       <thead>
         <tr>
@@ -27,6 +27,8 @@ const ExpenseTable = ({ expenses, tableVisible }) => {
             amount={expense.amount}
             category={expense.category}
             note={expense.note}
+            airtableId={expense.airtable_id}
+            removeTransaction={removeTransaction}
           />
         ))}
       </tbody>

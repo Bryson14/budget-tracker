@@ -47,6 +47,8 @@ function App() {
           // This function (`page`) will get called for each page of records.
 
           records.forEach(function (record) {
+            // adding airtable id to be able to remove
+            record.fields["airtable_id"] = record.id;
             list_records.push(record.fields);
           });
 
@@ -96,6 +98,21 @@ function App() {
           }
         }
       );
+  }
+
+  async function remove_transaction_from_airtable(airtable_id) {
+    debugger;
+    base("Transactions").destroy(
+      [`${airtable_id}`],
+      function (err, deletedRecords) {
+        if (err) {
+          console.error(err);
+          return;
+        }
+        console.log("Deleted", deletedRecords.length, "records");
+        get_transactions_from_airtable();
+      }
+    );
   }
 
   // creates new transaction to airtable
@@ -222,7 +239,11 @@ function App() {
                 </mark>
               </small>
             </div>
-            <ExpenseTable expenses={expenses} tableVisible={tableVisible} />
+            <ExpenseTable
+              expenses={expenses}
+              tableVisible={tableVisible}
+              removeTransaction={remove_transaction_from_airtable}
+            />
           </div>
         </div>
       )}

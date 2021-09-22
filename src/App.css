@@ -21,3 +21,9 @@ mark {
   background-color: #adf7b6;
   border: 1px solid#788585;
 }
+
+@media (max-width: 500px) {
+  .table-condensed {
+    font-size: 12px;
+  }
+}
