@@ -32,8 +32,10 @@ const ExpenseRow = ({
                 setShowAlert(false);
               }
             }}
+            type="button"
+            className="btn btn-danger"
           >
-            Yes
+            Delete
           </button>
         </td>
         <td>
@@ -41,8 +43,10 @@ const ExpenseRow = ({
             onClick={() => {
               setShowAlert(false);
             }}
+            type="button"
+            className="btn btn-success"
           >
-            No
+            Cancel
           </button>
         </td>
       </tr>
@@ -58,7 +62,7 @@ const ExpenseRow = ({
             setShowAlert(true);
           }}
         >
-          <button type="button" className="btn btn-danger">
+          <button type="button" className="btn btn-secondary">
             X
           </button>
         </td>
