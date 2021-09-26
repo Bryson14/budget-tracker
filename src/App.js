@@ -109,7 +109,6 @@ function App() {
           console.error(err);
           return;
         }
-        console.log("Deleted", deletedRecords.length, "records");
         get_transactions_from_airtable();
       }
     );
