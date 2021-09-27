@@ -190,7 +190,7 @@ function App() {
           <div className="form-div enter-expense-gradient">
             <h1 className="text-white pt-3">Budget Tracker 💸</h1>
             <small className="text-light">
-              <mark>
+              <mark className={todays_budget > 0 ? "mark-good" : "mark-bad"}>
                 Today's Budget: <b>${todays_budget.toFixed(2)}</b>
               </mark>
             </small>
@@ -232,9 +232,16 @@ function App() {
             <div onClick={changeVisible} style={{ cursor: "pointer" }}>
               <h2> Expenses {tableVisible ? "˄" : "˅"} </h2>
               <small className="mb-2">
-                <mark>
-                  Spent ${actual_budget_spent.total_spent.toFixed(2)} of $
-                  {actual_budget_spent.total_budget}
+                <mark
+                  className={
+                    actual_budget_spent.total_spent >
+                    actual_budget_spent.total_budget
+                      ? "mark-bad"
+                      : "mark-good"
+                  }
+                >
+                  Spent $ <b>{actual_budget_spent.total_spent.toFixed(2)}</b> of
+                  ${actual_budget_spent.total_budget}
                 </mark>
               </small>
             </div>
