@@ -200,6 +200,23 @@ const EnterExpense = ({
           />
         </div>
       </div>
+
+      <div className="form-group row">
+        <label className={noteLabelStyle} htmlFor="pictureInput">
+          Recipt Picture
+        </label>
+        <div className="col-sm-8">
+          <input
+            type="image"
+            className={noteInputStyle}
+            alt="submit a picture"
+            id="pictureInput"
+            aria-describedby="pictureHelp"
+            placeholder="submit a picture"
+          />
+        </div>
+      </div>
+
       <div className="form-group row justify-content-center">
         <button type="submit" className="btn btn-primary">
           Submit
