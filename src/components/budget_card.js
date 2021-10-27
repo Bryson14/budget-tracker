@@ -15,7 +15,7 @@ const BudgetCard = ({
   let spent = budget_amount - amount_remaining;
   let aggregate_budget = percentage_month_completed * budget_amount;
 
-  let card_style_class = "card card-block h-100";
+  let card_style_class = "card card-block h-100 rounded";
   // setting message for card color
   let message = `  |  ${Math.round((spent * 100) / budget_amount)}% Usage`;
 

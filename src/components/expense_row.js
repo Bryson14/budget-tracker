@@ -21,7 +21,7 @@ const ExpenseRow = ({
       <tr>
         <td>{items[0]}</td>
         <td>{items[1]}</td>
-        <td>Delete?</td>
+        <td>delete?</td>
         <td>
           <button
             onClick={() => {
@@ -35,7 +35,7 @@ const ExpenseRow = ({
             type="button"
             className="btn btn-danger"
           >
-            Delete
+            delete
           </button>
         </td>
         <td>
@@ -46,7 +46,7 @@ const ExpenseRow = ({
             type="button"
             className="btn btn-success"
           >
-            Cancel
+            cancel
           </button>
         </td>
       </tr>
