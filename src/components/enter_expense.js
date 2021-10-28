@@ -11,6 +11,7 @@ const EnterExpense = ({
   const [note, setNote] = useState("");
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
+  const [photo, setPhoto] = useState(null);
 
   const goodLabelStyle = "col-sm-4 col-form-label text-white";
   const badLabelStyle = "text-danger col-sm-4 col-form-label text-white";
@@ -207,12 +208,15 @@ const EnterExpense = ({
         </label>
         <div className="col-sm-8">
           <input
-            type="image"
+            type="file"
             className={noteInputStyle}
+            value={photo}
+            onChange={(e) => setPhoto(e.target.files[0])}
             alt="submit a picture"
             id="pictureInput"
             aria-describedby="pictureHelp"
             placeholder="submit a picture"
+            accept="image/*"
           />
         </div>
       </div>
