@@ -204,13 +204,12 @@ const EnterExpense = ({
 
       <div className="form-group row">
         <label className={noteLabelStyle} htmlFor="pictureInput">
-          Recipt Picture
+          Reciept Picture (Optional)
         </label>
         <div className="col-sm-8">
           <input
             type="file"
             className={noteInputStyle}
-            value={photo}
             onChange={(e) => setPhoto(e.target.files[0])}
             alt="submit a picture"
             id="pictureInput"
