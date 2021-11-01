@@ -202,7 +202,7 @@ const EnterExpense = ({
         </div>
       </div>
 
-      <div className="form-group row">
+      {/* <div className="form-group row">
         <label className={noteLabelStyle} htmlFor="pictureInput">
           Reciept Picture (Optional)
         </label>
@@ -218,7 +218,7 @@ const EnterExpense = ({
             accept="image/*"
           />
         </div>
-      </div>
+      </div> */}
 
       <div className="form-group row justify-content-center">
         <button type="submit" className="btn btn-primary">
