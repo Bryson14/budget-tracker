@@ -202,24 +202,6 @@ const EnterExpense = ({
         </div>
       </div>
 
-      {/* <div className="form-group row">
-        <label className={noteLabelStyle} htmlFor="pictureInput">
-          Reciept Picture (Optional)
-        </label>
-        <div className="col-sm-8">
-          <input
-            type="file"
-            className={noteInputStyle}
-            onChange={(e) => setPhoto(e.target.files[0])}
-            alt="submit a picture"
-            id="pictureInput"
-            aria-describedby="pictureHelp"
-            placeholder="submit a picture"
-            accept="image/*"
-          />
-        </div>
-      </div> */}
-
       <div className="form-group row justify-content-center">
         <button type="submit" className="btn btn-primary">
           Submit
