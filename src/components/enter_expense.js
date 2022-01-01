@@ -11,7 +11,6 @@ const EnterExpense = ({
   const [note, setNote] = useState("");
   const [category, setCategory] = useState("");
   const [amount, setAmount] = useState("");
-  const [photo, setPhoto] = useState(null);
 
   const goodLabelStyle = "col-sm-4 col-form-label text-white";
   const badLabelStyle = "text-danger col-sm-4 col-form-label text-white";
@@ -111,10 +110,30 @@ const EnterExpense = ({
     }
   };
 
+  // decimal number positive or negative
+  let decimal_re = new RegExp("^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$");
+
   const handleChange = (data) => (e) => {
     switch (data) {
       case "amount":
-        setAmount(e.target.value);
+        let target = e.target.value;
+        debugger;
+        // shortcut on iphone decimal keypad to allow for negatives
+        if (target.startsWith("..")) {
+          target = "-" + target.slice(2);
+        }
+
+        if (
+          decimal_re.test(target) ||
+          target === "." ||
+          target === "-" ||
+          target === "" ||
+          target === "-."
+        ) {
+          setAmount(target);
+        } else {
+          alert("Invalid number");
+        }
         break;
       case "category":
         setCategory(e.target.value);
@@ -125,8 +144,8 @@ const EnterExpense = ({
       case "date":
         var today = new Date().toISOString();
         today = today.slice(0, today.indexOf("T"));
-        if (e.target.value > today) {
-          alert("Cannot have an expense in the future.");
+        if (e.target.value > today + 1) {
+          alert("Cannot have an expense in the future. 1 Day ahead is okay.");
           setDate(today);
           return;
         }
@@ -159,14 +178,15 @@ const EnterExpense = ({
         </label>
         <div className="col-sm-8">
           <input
-            type="number"
-            step="0.01"
+            type="text"
+            inputmode="decimal"
+            pattern="[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)"
             className={amountInputStyle}
             value={amount}
             onChange={handleChange("amount")}
             id="amountinput"
             aria-describedby="amountHelp"
-            placeholder="Amount"
+            placeholder="Amount (Use .. for negative)"
           />
         </div>
       </div>
