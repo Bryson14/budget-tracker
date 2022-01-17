@@ -188,7 +188,7 @@ function App() {
       ) : (
         <div className="container-fluid p-2 text-center">
           <div className="form-div enter-expense-gradient">
-            <h1 className="text-white pt-3">Budget Tracker 💸</h1>
+            <h1 className="text-white pt-3">Budget Tracker 🤑</h1>
             <small className="text-light">
               <mark className={todays_budget > 0 ? "mark-good" : "mark-bad"}>
                 Today's Budget: <b>${todays_budget.toFixed(2)}</b>
