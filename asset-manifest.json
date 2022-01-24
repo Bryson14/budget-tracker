@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/budget-tracker/static/css/main.a65cfc31.chunk.css",
-    "main.js": "/budget-tracker/static/js/main.a13b079a.chunk.js",
-    "main.js.map": "/budget-tracker/static/js/main.a13b079a.chunk.js.map",
+    "main.css": "/budget-tracker/static/css/main.c39000c5.chunk.css",
+    "main.js": "/budget-tracker/static/js/main.05917ea4.chunk.js",
+    "main.js.map": "/budget-tracker/static/js/main.05917ea4.chunk.js.map",
     "runtime-main.js": "/budget-tracker/static/js/runtime-main.21682cfa.js",
     "runtime-main.js.map": "/budget-tracker/static/js/runtime-main.21682cfa.js.map",
     "static/js/2.15115c08.chunk.js": "/budget-tracker/static/js/2.15115c08.chunk.js",
@@ -10,14 +10,13 @@
     "static/js/3.317ec97f.chunk.js": "/budget-tracker/static/js/3.317ec97f.chunk.js",
     "static/js/3.317ec97f.chunk.js.map": "/budget-tracker/static/js/3.317ec97f.chunk.js.map",
     "index.html": "/budget-tracker/index.html",
-    "static/css/main.a65cfc31.chunk.css.map": "/budget-tracker/static/css/main.a65cfc31.chunk.css.map",
-    "static/js/2.15115c08.chunk.js.LICENSE.txt": "/budget-tracker/static/js/2.15115c08.chunk.js.LICENSE.txt",
-    "static/media/index.css": "/budget-tracker/static/media/money_bags_worse.1bff06de.jpg"
+    "static/css/main.c39000c5.chunk.css.map": "/budget-tracker/static/css/main.c39000c5.chunk.css.map",
+    "static/js/2.15115c08.chunk.js.LICENSE.txt": "/budget-tracker/static/js/2.15115c08.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.21682cfa.js",
     "static/js/2.15115c08.chunk.js",
-    "static/css/main.a65cfc31.chunk.css",
-    "static/js/main.a13b079a.chunk.js"
+    "static/css/main.c39000c5.chunk.css",
+    "static/js/main.05917ea4.chunk.js"
   ]
 }
