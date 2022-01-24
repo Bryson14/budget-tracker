@@ -49,10 +49,18 @@ const BudgetCard = ({
     }
     s += "\n\n";
     category_transactions.forEach((trans) => {
+      // date first
       const date_obj = new Date(trans.date);
-      const day_month_date =
-        String(date_obj.getMonth() + 1) + "/" + String(date_obj.getUTCDate());
-      s += `${day_month_date} - $${trans.amount} - ${trans.note}\n`;
+      let amount_string =
+        "$" +
+        (trans.amount < 0 ? "(" : "") +
+        (trans.amount < 0 ? String(trans.amount).slice(1) : trans.amount) +
+        (trans.amount < 0 ? ")" : "");
+      let date_string =
+        String(date_obj.getUTCDate()) + "/" + String(date_obj.getMonth() + 1);
+      s += `${date_string.padEnd(5, " ")}  ${String(trans.note)
+        .slice(0, 30)
+        .padEnd(31, ".")} ${amount_string}\n`;
     });
 
     if (category_transactions.length === 0) {
